@@ -1,8 +1,8 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, signal, effect } from '@angular/core';
 
-const SIZE = 3;
+export const T3_SIZE = 3;
 
-type T3CellState = "A" | "B" | "UNOWNED";
+export type T3CellState = "A" | "B" | "UNOWNED";
 type T3GameState = "INGAME" | "A_WIN" | "B_WIN"
 
 @Injectable({
@@ -11,15 +11,29 @@ type T3GameState = "INGAME" | "A_WIN" | "B_WIN"
 export class T3Controller {
   public cells = signal((() => {
     const initial: T3CellState[][] = [];
-    for (let i = 0; i < SIZE; i++) {
+    for (let i = 0; i < T3_SIZE; i++) {
       const row: T3CellState[] = []
-      for (let j = 0; i < SIZE; j++) {
+      for (let j = 0; j < T3_SIZE; j++) {
         row.push("UNOWNED");
       }
-      initial.push(row)
+      initial.push(row);
     }
     return initial;
-  })())
+  })(), {
+    equal: (a, b) => {
+      return JSON.stringify(a) !== JSON.stringify(b);
+    }
+  });
+
+  constructor() {
+    effect(() => ((cells) => {
+      const state = this.check(cells);
+      if (state !== "INGAME") {
+        location.href = `/result/${state}`
+      }
+      console.log(state);
+    })(this.cells()));
+  }
 
   public setCellState(state: T3CellState, {col, row}: {col: number, row: number}): void {
     const next = this.cells();
@@ -27,8 +41,8 @@ export class T3Controller {
     this.cells.set(next);
   }
 
-  public check(): T3GameState {
-    const current = this.cells()
+  public check(cells: T3CellState[][]): T3GameState {
+    const current = cells;
     const tCurrent = current[0].map((_, i) => current.map(row => row[i]));
     const diagonal = [
       current[0].map((_, i) => current[i][i]),
@@ -49,9 +63,9 @@ export class T3Controller {
   }
 
   private checkline(line: T3CellState[]): T3GameState {
-    const isFinished = line.every((v) => {
-      v === line[0] && v !== "UNOWNED";
-    })
+    const isFinished = line.every((v) =>
+      v === line[0] && v !== "UNOWNED"
+    )
     if (isFinished && line[0] === "A") {
       return "A_WIN";
     } else if (isFinished && line[0] === "B") {

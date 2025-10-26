@@ -1,0 +1,7 @@
+<div class="game-page__map">
+  @for (row of cells; track row; let i = $index) {
+    @for (cell of row; track $index; let j = $index) {
+      <app-t3-cell [cellState]="cell" (t3OnClick)="t3CellOnClick({row: i, col: j})"/>
+    }
+  }
+</div>
