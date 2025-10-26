@@ -1,16 +1,60 @@
-/* You can add global styles to this file, and also import other style files */
 :root {
-  --color-primary: #b4e9ff;
-  --color-background: #ffffff;
+  /* 背景・サーフェス */
+  --color-background: #121212;   /* ページ背景（非常に暗い） */
+  --color-surface:    #1e1e1e;   /* カードやカードの背景 */
+
+  /* 色調（Primary は暗めに） */
+  --color-primary:    #8ec5d9;   /* 明るい水色を暗めにしたバージョン */
   --color-secondary: #8ec5d9;
   --color-tertiary: #e6f7ff;
-  --color-text-normal: #1a1a1a;
-  --color-accent: #ff6347;
 
+  /* 文字色（明るい） */
+  --color-text: #e0e0e0;  /* 可読性を保つ白っぽいグレー */
+
+  /* アクセント色（変えずに使うと強調が際立つ） */
+  --color-accent:     #ff6347;   /* オレンジレッド（ボタン・リンク） */
+
+  font-size: 16px;
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--color-primary)
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100dvw;
+  height: 100dvh;
+  overflow: hidden;
+  background-color: var(--color-background);
+  color: var(--color-text);
+}
+
+.t3-btn {
+  width: fit-content;
+  margin: 0 auto;
+  padding: 8px 16px;
+  border: 1px solid var(--color-accent);
+  border-radius: 100vh;
+  color: var(--color-accent);
+  background-color: var(--color-white);
+  transition: all .1s;
+  font-weight: bold;
+
+  &:hover, &:focus {
+    background-color: var(--color-accent);
+    color: var(--color-white);
+  }
 }
