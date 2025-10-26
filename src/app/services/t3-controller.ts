@@ -1,4 +1,5 @@
-import { Injectable, signal, effect } from '@angular/core';
+import { Injectable, signal, effect, inject } from '@angular/core';
+import { Router } from '@angular/router';
 
 export const T3_SIZE = 3;
 
@@ -9,7 +10,9 @@ export type T3GameState = "INGAME" | "A_WIN" | "B_WIN"
   providedIn: 'root'
 })
 export class T3Controller {
-  public cells = signal((() => {
+  private router = inject(Router);
+
+  private createCells = () => {
     const initial: T3CellState[][] = [];
     for (let i = 0; i < T3_SIZE; i++) {
       const row: T3CellState[] = []
@@ -19,20 +22,25 @@ export class T3Controller {
       initial.push(row);
     }
     return initial;
-  })(), {
-    equal: (a, b) => {
-      return JSON.stringify(a) !== JSON.stringify(b);
-    }
+  }
+  public cells = signal(this.createCells(), {
+    equal: (a, b) => false
   });
 
   constructor() {
     effect(() => ((cells) => {
       const state = this.check(cells);
       if (state !== "INGAME") {
-        location.href = `/result/${state}`
+        this.router.navigate([`/result/${state}`]);
       }
       console.log(state);
     })(this.cells()));
+  }
+
+  public reset(): void {
+    const cells = this.createCells();
+    this.cells.set(cells);
+    console.log(this.cells())
   }
 
   public setCellState(state: T3CellState, {col, row}: {col: number, row: number}): void {

@@ -1,10 +1,10 @@
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { T3GameState } from '../../services/t3-controller';
 
 @Component({
   selector: 'app-result-page',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './result-page.html',
   styleUrl: './result-page.scss',
 })
