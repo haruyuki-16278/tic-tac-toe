@@ -3,7 +3,7 @@ import { Injectable, signal, effect } from '@angular/core';
 export const T3_SIZE = 3;
 
 export type T3CellState = "A" | "B" | "UNOWNED";
-type T3GameState = "INGAME" | "A_WIN" | "B_WIN"
+export type T3GameState = "INGAME" | "A_WIN" | "B_WIN"
 
 @Injectable({
   providedIn: 'root'
