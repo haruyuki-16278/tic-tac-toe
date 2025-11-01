@@ -1,3 +1,4 @@
+<p class="game-page__player-indicator">current player: {{ count() % 2 === 0 ? "🍖" : "🐟" }}</p>
 <div class="game-page__map">
   @for (row of cells; track row; let i = $index) {
     @for (cell of row; track $index; let j = $index) {

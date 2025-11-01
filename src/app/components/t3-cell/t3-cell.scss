@@ -6,4 +6,9 @@ button {
   border: 2px solid var(--color-tertiary);
   font-size: 96px;
   text-align: center;
+
+  &:hover {
+    background-color: var(--color-accent);
+    cursor: pointer;
+  }
 }

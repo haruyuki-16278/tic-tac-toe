@@ -49,6 +49,10 @@ export class T3Controller {
     this.cells.set(next);
   }
 
+  public getCellState({col, row}: {col: number, row: number}): T3CellState {
+    return this.cells()[row][col];
+  }
+
   public check(cells: T3CellState[][]): T3GameState {
     const current = cells;
     const tCurrent = current[0].map((_, i) => current.map(row => row[i]));

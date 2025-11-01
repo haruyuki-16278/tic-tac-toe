@@ -1,5 +1,4 @@
 import { Component, input, output } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
 import { T3CellState } from '../../services/t3-controller';
 
 @Component({
