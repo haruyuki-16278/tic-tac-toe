@@ -24,7 +24,7 @@ export class GamePage implements OnInit {
   t3CellOnClick({col, row}: {col:number, row:number}) {
     if (this.ctrl.getCellState({col, row}) === "UNOWNED") {
       const nextState = this.count() % 2 === 0 ? "A" : "B";
-      this.ctrl.setCellState(nextState, {col, row});
+      this.ctrl.setCellState(nextState, {col, row}, this.count());
       this.count.update((v) => v + 1);
     }
   }

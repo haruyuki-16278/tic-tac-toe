@@ -1,1 +1,3 @@
-<button (click)="onClick()">{{ state }}</button>
+<button (click)="onClick()">
+  <span [className]="cellClassName">{{ state }}</span>
+</button>
